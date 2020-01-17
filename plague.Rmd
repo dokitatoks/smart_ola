@@ -1,0 +1,138 @@
+---
+title: "Pneumonic plague outbreak investigation in India"
+author: "Olatunji Adetokunboh"
+date: "17/01/2020"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Section 1: Background
+
+-  Pneumonic plague is an infectious disease caused by the bacterium _Yersinia pestis_. 
+-  The infection can be caused by directly by the inhalation of aerosolised plague bacteria, or due to septicaemic plague spreads into lung tissue from the bloodstream. 
+-  Pneumonic plague can be vector-borne and spread due to contact with infected rodents or cats. The spread can also be through contact with infected person.  
+-  Clinical manifestations include headache, fever, difficulty in breathing, chest pain and coughing often with hemoptysis.
+-  If not treated the disease can progress and cause respiratory failure, then shock and later death. 
+-  The incubation period is 3-7 days.
+-  Diagnosis by isolation of the agent from the blood, sputum, or fluid from a lymph node. 
+
+
+
+# Section 2: Methodology
+
+The outbreak investigation should include the following:
+  
+1.	_Verification of the diagnosis_
+The diagnosis of the disease was confirmed by serologic tests for all cases.
+
+2.	_Confirm the existence of an outbreak_
+From November 7, 2019 to December 15, 2019, confirmed, suspected and probable cases of pneumonic plague were reported, and this shows the existence of an outbreak. 
+
+3.	_Identify and count cases_ - 
+  
+  a.	Establish case definition
+-	Possible fever (>37.5 oC) and at least two other symptoms compatible with pneumonic plague (headache, cough, chest pain, and/or haemoptysis) in an individual who did not have another proven etiology.
+
+-	Confirmed case: the above criteria and laboratory confirmation.
+
+b.	Case finding
+-	Hospital records from November 7, 2019 through December 15, 2019 were reviewed for the areas surrounding the epicenter of the outbreak hospitals.
+-	In addition, healthcare workers physicians in the area were contacted and asked to report patients seen in the last month with clinical features like the case patients. 
+-	Patients with similar features were contacted, interviewed and asked to submit specimen samples for laboratory test.
+-	The case definition includes information on the person, place and time. It also uses clinical and laboratory criteria. 
+
+
+For this investigation, a line list of the cases was prepared to estimate the probable incubation period, secondary attack rate and case—fatality rate.
+
+# Section 3: Results
+
+Figure 1 shows the incidence of confirmed, suspected and probable cases of pneumonic plague per week. The peak of the disease was in week 48 of 2019. Week 48 
+was also the last week with a confirmed case. The outbreak was for six weeks.
+
+## computing the incidence
+
+
+```{r}
+library(haven)
+plague_5 <- read_dta("C:/Users/olatunji/Desktop/plague_5.dta")
+View(plague_5)
+
+library('incidence')
+library('ggplot2')
+
+# compute weekly stratified incidence
+i.7.group <- incidence(plague_5$onsetdate, interval = 7, groups = plague_5$status)
+
+# print incidence object
+i.7.group
+
+# plot incidence object
+my_theme <- theme_bw(base_size = 12) +
+  theme(panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, color = "black"))
+plot(i.7.group, border = "white") +
+  my_theme +
+  theme(legend.position = c(0.8, 0.75))
+```
+
+ _Figure 1 The weekly incidence of pneumonic plague outbreak_ 
+
+Only the 42 patients met the definition of a confirmed case. Ten other individuals detected by case finding methods met the definition of a probable case and fourteen were suspected cases.  
+
+Incubation period and duration of symptoms could not ascertain because of missing information like exposure date and recovery dates.
+
+
+
+```{r}
+
+library("EpiCurve")
+EpiCurve(plague_5,
+         date = "onsetdate",
+         cutvar = "status",
+         period = "day",
+         ylabel="Number of cases",
+         xlabel=sprintf("From %s to %s", min(plague_5$onsetdate), max(plague_5$onsetdate)),
+         title = "Figure 2 Epidemic Curve of Pneumonic Plague Outbreak in India",
+         note = "Daily epidemic curve")
+```
+
+
+Figure 2 shows the epidemic trend of the outbreak. On November 7, 2019, the index case started showing symptoms of pneumonic plague and this was only reported on November 15, 2019. 
+The outbreak period was from November 7, 2019 till December 15, 2019 when the last case was reported.
+The peak of this outbreak was on November 25, 2019.
+
+Calculating attack rate
+
+Attack rate (AR)  =  No of people who became ill/No of people at risk for the illness
+
+```{r}
+66/201*100
+```
+
+The attack rate was 32.8%
+
+Calculating case-fatality rate
+
+Case fatality rate (CFR) = No of deaths from a specified disease/No of individuals diagnosed with the disease
+
+```{r}
+13/66*100
+```
+
+  
+The CFR was 19.7%
+  
+  
+# References
+  
+1.	Dennis, DT, Gage KL, Gratz N, Poland JD, and Tikhomirov E. (Principal authors). Plague Manual. World Health Organization. Geneva, Switzerland. 172 pp., 1999.
+2.	Gross, L. How the plague bacillus and its transmission through fleas were discovered: reminiscences from my years at the Pasteur Institute in Paris.Proc Natl Acad Sci U S A. 1995 August 15; 92(17):7609–7611.
+3.	Plague. World Health Organization. September 2016. Accessed 16 January 2020. https://www.who.int/en/news-room/fact-sheets/detail/plague 
+
