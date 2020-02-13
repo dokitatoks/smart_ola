@@ -1,0 +1,137 @@
+---
+title: "Pneumonic plague outbreak investigation in India: Situation report"
+
+author: "Olatunji Adetokunboh"
+
+date: "07 February 2020"
+output:
+  html_document: default
+  word_document: default
+fig_width: 1
+highlight: tango
+fig_height: 6
+theme: sandstone
+code_folding: hide
+---
+
+
+```{r, echo = FALSE, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+
+
+
+## Situation update
+
+- One hundred and seventeen laboratory confirmed cases were reported from 07 November 2019 to 11 January 2020. The number of reported cases per week decreased with a total of 5 cases reported the week before this report (05 January 2020 – 11 January 2020).
+
+- Fifteen probable cases were reported as at 11 January 2020.
+
+- There was no new case since 11 January till 04 February 2020.
+
+- As at 10 December 2019, when the previous report was filed, there were only 42 laboratory confirmed cases.
+
+- There were additional 75 new confirmed cases from 12 December to 11 January 2020. Some of the patients initially classified as probable and suspected where eventually confirmed to be infected.
+
+- Twenty-two deaths were recorded, and the overall case fatality ratio was 17% (22/132). 
+
+- Most of the dead patients were classified as probable cases since the disease was not confirmed before they died. The cause of death in some of these patients where not confirmed to be pneumonic plague and this makes the case fatality rate likely to be lesser than 17%. 
+
+- More deaths were recorded in the second half of the outbreak but most of the dead patients were probable cases.
+
+- The incubation period for the infection was 0-13 days.
+
+- The attack rate as at 10 December 2019 was 32% (66/201) but this changed over time. The overall attack rate on 11 January 2020 was 65% (132/201). This shows that the disease was highly infective and affected a reasonable proportion of the population.
+
+- It took the patients between 2-15 days from the onset of illness and seeking medical attention at the hospital. Forty percent (52/132) of the patients reported to the hospital after 7 days.
+
+- The peaks of the outbreak were in the first and second weeks of December 2019 (as shown in Figure 1).
+
+
+```{r, echo=FALSE}
+library(haven)
+plague_2 <- read_dta("C:/Users/olatunji/Desktop/plague_2.dta")
+
+library(ggplot2)
+```
+
+
+
+```{r, fig.height = 10, fig.width = 15, message=FALSE}
+
+library("EpiCurve")
+EpiCurve(plague_2,
+         date = "onsetdate",
+         cutvar = "status",
+         period = "day",
+         ylabel="Number of cases",
+         xlabel=sprintf("From %s to %s", min(plague_2$onsetdate), max(plague_2$onsetdate)),
+         title = "Figure 1 Epidemic Curve of Pneumonic Plague Outbreak in India",
+         note = "Daily epidemic curve")
+```
+
+
+
+
+
+##  2. Public Health action/response interventions to date
+The Department of Health and other provincial authorities in the country, World Health Organization and partners are implementing outbreak control interventions. They are taking measures to ensure that there is adequate response.
+An overview of key activities is summarized below:
+
+
+#### _1. Co-ordination_
+The Emergency Response Plan was developed by the incident management team with the aim of controlling and ending the current pneumonic plague outbreak, and to strengthen systems to facilitate prevention and early detection of the infection. The activities included collating and sending out reports, supporting the planning of legislation and risk communication activities.
+
+
+#### _2. Surveillance_
+There is ongoing surveillance and investigation of likely new cases of pneumonic plague.
+
+
+#### _3. Laboratory_
+All clinical isolates received at the Central Laboratory undergone serologic tests for laboratory confirmation.
+
+
+#### _4. Environmental health and food safety_
+A team of incident management team members have conducted inspections and submitted environmental monitoring report on the control of rodents in the immediate environment. Rodents were caught and tested for the offending pathogen.  
+Health education campaign on the risk and preventive measures were carried out across the affected communities. 
+
+
+#### _5. Training/capacity building_
+There is an ongoing in-service training of district environmental health providers, veterinary public health officials and clinical health officers on the preventive measures and management of the infection.
+
+
+
+
+##  3. Recommendations and advice for the public
+Reducing the risk of transmission of pneumonic plague infections should focus on minimising the likelihood of people being bitten by infected fleas, having direct contact with infective body exudates and being exposed to patients with plague.
+The following steps should be taken:
+
+1.	Education of the community members on the modes of human and domestic animal exposure. The need to prevent access to food and shelter by rodents through appropriate storage and disposal of food, garbage and refuse; and the importance of avoiding flea bites by use of insecticides and repellents.
+
+2.	Routine handwashing with soap and water or use of alcohol hand rub.
+
+3.	Periodic fumigation and control of rodents on ships, docks and warehouses by rat proofing.
+
+4.	Use of protective gloves when hunting and handling wildlife.
+
+5.	Vaccination for high-risk groups (such as laboratory personnel who are constantly exposed to the risk of contamination, and health care workers).
+
+6.	Ensure correct treatment of affected patients.
+
+7.	Patients should be isolated so as not to infect others via air droplets especially with the use of face masks for the pneumonic patients.
+
+8.	Continuous identification and monitoring of close contacts of plague patients and use of chemoprophylaxis by the contacts.
+
+9.	Safe burial practices for dead plague patients. 
+
+
+
+
+    
+##  4. Conclusion
+There has been a good outcome on the efforts to control pneumonic plague in the Indian community in recent weeks with no new confirmed case in the last one week. However, there still need to be on the look out for likely new cases, pay attention to the drivers of transmission and reinforce preventive measures within the communities. 
+
+
